@@ -21,6 +21,17 @@ type Person struct {
 	birthDay  time.Time
 }
 
+// func main() {
+// 	p1 := Person{"Zeine", "Imanmalik", time.Date(2000, 1, 1, 0, 0, 0, 0, time.UTC)}
+// 	p2 := Person{"Make", "It", time.Date(2000, 2, 1, 0, 0, 0, 0, time.UTC)}
+// 	people := People{}
+// 	people = append(people, p1)
+// 	people = append(people, p2)
+// 	fmt.Println(people)
+// 	fmt.Println(people.Less(0, 1))
+// 	fmt.Println(people)
+// }
+
 //People is a slice of type person
 type People []Person
 
@@ -107,4 +118,3 @@ func (m *Matrix) Set(row, col, value int) bool {
 	m.data[row*m.cols+col] = value
 	return true
 }
-
