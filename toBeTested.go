@@ -22,8 +22,8 @@ type Person struct {
 }
 
 // func main() {
-// 	p1 := Person{"Zeine", "Imanmalik", time.Date(2000, 1, 1, 0, 0, 0, 0, time.UTC)}
-// 	p2 := Person{"Make", "It", time.Date(2000, 2, 1, 0, 0, 0, 0, time.UTC)}
+// 	p1 := Person{"Zeine", "Imanmalik", time.Date(2020, time.April, 11, 21, 34, 01, 0, time.UTC)}
+// 	p2 := Person{"Make", "It", time.Date(2021, time.April, 11, 21, 34, 01, 0, time.UTC)}
 // 	people := People{}
 // 	people = append(people, p1)
 // 	people = append(people, p2)
