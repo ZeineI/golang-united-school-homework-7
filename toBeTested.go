@@ -21,11 +21,6 @@ type Person struct {
 	birthDay  time.Time
 }
 
-func main() {
-	matrix, _ := New("1\n2")
-	fmt.Println(matrix.rows, matrix.cols, matrix.data)
-}
-
 //People is a slice of type person
 type People []Person
 

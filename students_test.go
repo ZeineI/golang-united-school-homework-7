@@ -200,8 +200,6 @@ func TestNew(t *testing.T) {
 		t.Run(key, func(t *testing.T) {
 			result, err := New(val.str)
 			if err != nil {
-				fmt.Println("AAAAAAAAAAAAAAAAAAAAAAA")
-				fmt.Println(err)
 				if err.Error() != val.expErr.Error() {
 					t.Errorf("inccorect")
 				}
@@ -214,4 +212,122 @@ func TestNew(t *testing.T) {
 		})
 		
 	}
+}
+
+func TestRows(t *testing.T) {
+	testCase := struct{
+		matrix Matrix
+		expResp [][]int
+	}{
+		matrix: Matrix{
+			rows: 2,
+			cols: 1,
+			data: []int{1,2},
+		},
+		expResp: [][]int{{1}, {2}},
+	}
+
+	result := testCase.matrix.Rows()
+	if !assert.Equal(t, result, testCase.expResp) {
+		t.Errorf("Not right row func")
+	}
+}
+
+func TestCols(t *testing.T) {
+	testCase := struct{
+		matrix Matrix
+		expResp [][]int
+	}{
+		matrix: Matrix{
+			rows: 2,
+			cols: 1,
+			data: []int{1,2},
+		},
+		expResp: [][]int{{1, 2}},
+	}
+
+	result := testCase.matrix.Cols()
+	fmt.Println(result)
+	if !assert.Equal(t, result, testCase.expResp) {
+		t.Errorf("Not right cols func")
+	}
+}
+
+func TestSet(t *testing.T) {
+	testCases := map[string]struct{
+		m 				Matrix
+		row, col, val 	int
+		expResp 		bool
+	}{
+		"-row": {
+			m: Matrix{
+				rows: 2,
+				cols: 3,
+				data: []int{1,2},
+			},
+			row: -5,
+			col: 2,
+			val: 5,
+			expResp: false,
+		},
+		"m.row <= row": {
+			m: Matrix{
+				rows: 2,
+				cols: 3,
+				data: []int{1,2},
+			},
+			row: 10,
+			col: 2,
+			val: 5,
+			expResp: false,
+			
+		},
+		"-col": {
+			m: Matrix{
+				rows: 2,
+				cols: 3,
+				data: []int{1,2},
+			},
+			row: 1,
+			col: -2,
+			val: 5,
+			expResp: false,
+
+		},
+		"m.col <= col": {
+			m: Matrix{
+				rows: 2,
+				cols: 3,
+				data: []int{1,2},
+			},
+			row: 2,
+			col: 5,
+			val: 5,
+			expResp: false,
+			
+		},
+		"correct": {
+			m: Matrix{
+				rows: 2,
+				cols: 2,
+				data: []int{1,1,2,2},
+			},
+			row: 1,
+			col: 1,
+			val: 5,
+			expResp: true,
+
+		},
+	}
+
+	for key, val := range testCases {
+		t.Run(key, func(t *testing.T) {
+			result := val.m.Set(val.row, val.col,val.val)
+			if result != val.expResp {
+				t.Errorf("Incorrect")
+			}
+		})
+		
+	}
+
 }
