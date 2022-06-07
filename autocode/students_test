@@ -4,6 +4,7 @@ import (
 	"os"
 	"testing"
 	"time"
+	"github.com/stretchr/testify/assert"
 	// "golang.org/x/tools/go/expect"
 )
 
@@ -22,10 +23,10 @@ func init() {
 // WRITE YOUR CODE BELOW
 func TestLen(t *testing.T) {
 	//create
-	testTable := []struct {
+	testTable := map[string]struct {
 		people People
 	}{
-		{
+		"len two": {
 			people: []Person{
 				{
 					firstName: "Zeine",
@@ -37,17 +38,19 @@ func TestLen(t *testing.T) {
 				},
 			},
 		},
-		{
+		"empty": {
 			people: []Person{},
 		},
 	}
 
 	//iterate
-	for _, testCase := range testTable {
-		num := testCase.people.Len()
-		if num != len(testCase.people) {
-			t.Error("Lens are not equal")
-		}
+	for name, testCase := range testTable {
+		t.Run(name, func(t *testing.T) {
+			num := testCase.people.Len()
+			if !assert.Equal(t,num, len(testCase.people) ){
+				t.Errorf("Len func problems %v", name)
+			}
+		})
 	}
 }
 
@@ -151,9 +154,12 @@ func TestLess(t *testing.T) {
 	}
 
 	for key, val := range testCases {
-		result := val.beforeFunc.Less(val.i, val.j)
-		if result != val.expected {
-			t.Errorf("Less func problems %v", key)
-		}
+		t.Run(key, func(t *testing.T) {
+			result := val.beforeFunc.Less(val.i, val.j)
+			if !assert.Equal(t, result, val.expected) {
+				t.Errorf("Less func problems %v", key)
+			}
+		})
+		
 	}
 }
