@@ -21,16 +21,10 @@ type Person struct {
 	birthDay  time.Time
 }
 
-// func main() {
-// 	p1 := Person{"Zeine", "Imanmalik", time.Date(2020, time.April, 11, 21, 34, 01, 0, time.UTC)}
-// 	p2 := Person{"Make", "It", time.Date(2021, time.April, 11, 21, 34, 01, 0, time.UTC)}
-// 	people := People{}
-// 	people = append(people, p1)
-// 	people = append(people, p2)
-// 	fmt.Println(people)
-// 	fmt.Println(people.Less(0, 1))
-// 	fmt.Println(people)
-// }
+func main() {
+	matrix, _ := New("1\n2")
+	fmt.Println(matrix.rows, matrix.cols, matrix.data)
+}
 
 //People is a slice of type person
 type People []Person

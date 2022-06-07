@@ -1,9 +1,14 @@
 package coverage
 
 import (
+	"errors"
+	"fmt"
 	"os"
+
+	"strconv"
 	"testing"
 	"time"
+
 	"github.com/stretchr/testify/assert"
 	// "golang.org/x/tools/go/expect"
 )
@@ -94,7 +99,7 @@ func TestLess(t *testing.T) {
 	//expected
 	//the beggining form
 
-	testCases := map[string]struct {
+	testCases := map[string]struct{
 		beforeFunc People
 		expected   bool
 		i          int
@@ -159,6 +164,53 @@ func TestLess(t *testing.T) {
 			if !assert.Equal(t, result, val.expected) {
 				t.Errorf("Less func problems %v", key)
 			}
+		})
+		
+	}
+}
+
+func TestNew(t *testing.T) {
+	testCases := map[string]struct{
+		matrix 	*Matrix
+		str 	string
+		expErr 	error
+	}{
+		"correct": {
+			matrix: &Matrix{
+				rows: 2,
+				cols: 1,
+				data: []int{1,2},
+			},
+			str: "1\n2",
+			expErr: nil,
+		},
+		"notNums": {
+			matrix: &Matrix{},
+			str: "Hola",
+			expErr: &strconv.NumError{Func: "Atoi", Num: "Hola", Err: strconv.ErrSyntax},
+		},
+		"rows not the same": {
+			matrix: &Matrix{},
+			str: "1 2\n2",
+			expErr: errors.New("Rows need to be the same length"),
+		},
+	}
+
+	for key, val := range testCases {
+		t.Run(key, func(t *testing.T) {
+			result, err := New(val.str)
+			if err != nil {
+				fmt.Println("AAAAAAAAAAAAAAAAAAAAAAA")
+				fmt.Println(err)
+				if err.Error() != val.expErr.Error() {
+					t.Errorf("inccorect")
+				}
+			} else {
+				if !assert.Equal(t, result, val.matrix) {
+					t.Errorf("Func inccorect %v", key)
+				}
+			}
+			
 		})
 		
 	}
